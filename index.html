@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAMDEV PVC</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+    }
+    header {
+      background: #0ea5e9;
+      color: #fff;
+      padding: 2.2rem 1rem 1.2rem 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(30,130,180,0.08);
+    }
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.7rem;
+      letter-spacing: 2px;
+      font-weight: bold;
+      text-shadow: 0 2px 14px rgba(50,90,120,0.13);
+    }
+    nav {
+      margin-top: 0.4rem;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      margin: 0 18px;
+      cursor: pointer;
+      font-size: 1.12rem;
+      padding: 0.58rem 1.6rem;
+      border-radius: 22px;
+      transition: background 0.2s, color 0.2s;
+    }
+    nav button.active,
+    nav button:hover,
+    nav button:focus {
+      background: #063d61;
+      color: #08ace9;
+      outline: none;
+    }
+    section {
+      max-width: 1180px;
+      margin: 2.3rem auto 0 auto;
+      padding: 2.3rem 2.5rem 2.3rem 2.5rem;
+      display: none;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 1px 8px rgba(80,100,120,0.089);
+    }
+    section.active {
+      display: block;
+      animation: fade-in 0.5s;
+    }
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    h2 {
+      color: #0ea5e9;
+      margin-top: 2rem;
+      margin-bottom: 0.8rem;
+      text-align: left;
+      font-size: 2.33rem;
+    }
+    .about-big {
+      font-size: 1.28rem;
+      max-width: 1050px;
+      line-height: 1.85;
+      margin: 2rem auto 1.9rem auto;
+      text-align: left;
+      background: #f7fbff;
+      padding: 2.2rem 1.7rem 1.4rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 1px 8px rgba(30,130,180,0.07);
+    }
+    .about-cols {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: flex-start;
+      margin: 2rem 0 2.5rem 0;
+      max-width: 1100px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .about-cols > div {
+      flex: 1 1 350px;
+      min-width: 300px;
+      font-size: 1.15rem;
+    }
+    .about-features {
+      margin-top: 2.2rem;
+      background:#e9f8fe;
+      border-radius:10px;
+      padding:1.2rem 2rem;
+      font-size:1.08rem;
+      max-width:610px;
+    }
+    .about-features ul{
+      margin:0.7em 0 0.7em 1.2em;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.8rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 700px) {
+      .products-grid {grid-template-columns: 1fr;}
+    }
+    .product-card {
+      background: #f0f5fa;
+      padding: 2.1rem 1.2rem 1.5rem 1.2rem;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(60,112,180,0.09);
+      border: none;
+      text-align: center;
+      cursor: pointer;
+      transition: box-shadow 0.18s, transform 0.15s, background 0.15s;
+      font-size: 1.13rem;
+      position: relative;
+    }
+    .product-card:hover,
+    .product-card:focus {
+      background: #e0f4fd;
+      box-shadow: 0 7px 18px rgba(30,130,180,0.13);
+      transform: translateY(-4px) scale(1.018);
+    }
+    .card-title {
+      font-size: 1.22rem;
+      font-weight: bold;
+      color: #0ea5e9;
+      margin-bottom: 0.58rem;
+    }
+    .card-desc {
+      font-size: 1.09rem;
+      color: #343e49;
+      margin-bottom: 0.7rem;
+      min-height: 2.3em;
+    }
+    .pdf-btn {
+      background: #0ea5e9;
+      color: #fff;
+      font-weight: bold;
+      padding: 0.75em 2.35em;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.11rem;
+      letter-spacing: 1px;
+      margin-top: 0.9em;
+      box-shadow: 0 2px 8px rgba(60,128,160,0.09);
+      display: inline-block;
+      transition: background 0.18s;
+      border: none;
+      cursor:pointer;
+    }
+    .pdf-btn:hover,
+    .pdf-btn:focus {
+      background: #063d61;
+      color: #fff;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 500px;
+      margin: auto;
+    }
+    form label {
+      font-weight: bold;
+      margin-bottom: 2px;
+    }
+    form input,
+    form textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    form button {
+      padding: 10px;
+      border: none;
+      background: #0ea5e9;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 6px;
+      font-size: 1.15rem;
+    }
+    form button:hover,
+    form button:focus {
+      background: #0284c7;
+      outline: none;
+    }
+    .contact-info {
+      max-width: 520px;
+      margin: 1.5rem auto 0 auto;
+      text-align: center;
+      font-size: 1.09rem;
+    }
+    .contact-info a {
+      color: #0ea5e9;
+      text-decoration: none;
+    }
+    .contact-info a:hover,
+    .contact-info a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    ul {
+      padding-left: 1.2em;
+      margin: 0.6em 0;
+    }
+    footer {
+      background: #0ea5e9;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      font-size: 1.03rem;
+      letter-spacing: 1px;
+      border-radius: 0 0 14px 14px;
+      box-shadow: 0 -2px 10px rgba(30,130,180,0.054);
+    }
+    @media (max-width: 900px) {
+      .about-cols {flex-direction:column; gap:0.9rem;}
+      section {padding:1.2rem 0.3rem 1.2rem 0.3rem;}
+      .about-big {padding: 1.1rem 0.7rem 0.6rem 0.7rem;}
+    }
+    @media (max-width: 700px) {
+      nav button {margin: 5px 2px; padding: 11px 0;}
+      .product-card{padding:1.2rem 0.4rem 1.1rem 0.4rem;}
+      .card-title{font-size:1rem;}
+      .card-desc{font-size:1rem;}
+      .about-big, .about-cols > div, .about-features {font-size:1.01rem;}
+    }
+  </style>
+  <!-- EmailJS CDN and initialization -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("5yDNaiFbQym1ug1JD"); // Your real PUBLIC key
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>RAMDEV PVC</h1>
+    <nav>
+      <button type="button" data-target="about" aria-controls="about" aria-selected="true" class="active">About</button>
+      <button type="button" data-target="products" aria-controls="products" aria-selected="false">Products</button>
+      <button type="button" data-target="contact" aria-controls="contact" aria-selected="false">Contact</button>
+    </nav>
+  </header>
+
+  <section id="about" class="active" role="region" aria-labelledby="about-title">
+    <div class="about-big">
+      <h2 id="about-title">About RAMDEV PVC</h2>
+      <p>
+        <strong>Welcome to RAMDEV PVC</strong> – an innovative leader in PVC solutions, partnering with <strong>KAKA company</strong> for all our core materials.
+        We are proud to provide premium PVC products for residential, commercial, and industrial spaces—ensuring long-term strength, beauty, and value for every customer.
+      </p>
+      <p>
+        <b>Why KAKA PVC?</b> Our entire product portfolio—from doors and louvers to wall and ceiling panels—features KAKA’s market-leading, high-density PVC materials,
+        celebrated for their robust build, fine design, and outstanding resistance to water, weather, and pests.  
+        Every RAMDEV PVC solution is designed for easy installation, modern aesthetics, and maintenance-free living.
+      </p>
+      <p>
+        Our clients range from individual homeowners to architects, builders, and commercial developers across India. 
+        We are committed to transparency, on-time delivery, and technical support at every step—from design and selection to after-sales service.
+        By always choosing KAKA’s certified PVC, we deliver products that not only elevate interiors but also last for years to come.
+      </p>
+      <p>
+        Our mission is to bring the highest quality, safest, and most attractive PVC products to our community.  
+        Make RAMDEV PVC your first choice for PVC doors, wall/ceiling cladding, decorative panels, and more: 
+        <b>Superior results, trusted materials, and customer service that truly cares.</b>
+      </p>
+      <p style="margin-top:2em; font-size:1.12rem; color:#016cff;"><b>
+        To see our latest products, visit the <span style="color:#0ea5e9;">Products</span> section above.
+        For any queries or quotations, feel free to <span style="color:#0ea5e9;">Contact us</span> anytime!
+      </b></p>
+    </div>
+    <div class="about-cols">
+      <div>
+        <h3>Company Profile</h3>
+        <p>
+          With years of expertise, RAMDEV PVC has established itself as a trusted manufacturer and supplier of premium PVC products—including doors, louvers, partitions, frames, and more. 
+          Our ISO-compliant processes and skilled staff guarantee products that meet every expectation in strength, finish, and reliability.
+        </p>
+        <p>
+          Our infrastructure supports high-volume output without ever sacrificing attention to detail. Rapid turnaround, direct professional communication, and a growing list of delighted customers define our journey.
+        </p>
+      </div>
+      <div>
+        <h3>Our Mission & Vision</h3>
+        <ul>
+          <li>To set industry benchmarks for design and performance in PVC solutions.</li>
+          <li>To offer eco-friendly, low-maintenance, and visually stunning products.</li>
+          <li>To nurture long-term partnerships built on satisfaction and mutual trust.</li>
+        </ul>
+        <div class="about-features">
+          <b>Our Core Pillars:</b>
+          <ul>
+            <li>Genuine KAKA PVC for every product</li>
+            <li>Durability, beauty, and eco-friendliness</li>
+            <li>Customer-first support & technical advice</li>
+            <li>Competitive no-hidden-costs pricing</li>
+            <li>Fast, flexible project fulfillment & delivery</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="products" role="region" aria-labelledby="products-title">
+    <h2 id="products-title">Our Products</h2>
+    <div class="products-grid">
+      <div class="product-card" tabindex="0">
+        <div class="card-title">D'Zino Door Leaf</div>
+        <div class="card-desc">Decorative door leaf designs with durability and style.</div>
+        <button class="pdf-btn" onclick="openPdfSameTab('https://drive.google.com/file/d/1tmn5Yyuxl5IxHYkkIXebCGs_sAp3CQy8/view?usp=drive_link')">Open PDF</button>
+      </div>
+      <div class="product-card" tabindex="0">
+        <div class="card-title">Final Louvers &amp; Wall Panel Catalogue</div>
+        <div class="card-desc">Elegant decorative louvers and wall panels.</div>
+        <button class="pdf-btn" onclick="openPdfSameTab('https://drive.google.com/file/d/1t05NOunWFWn1hfLiktS8pvuDvn80EJ0m/view?usp=drive_link')">Open PDF</button>
+      </div>
+      <div class="product-card" tabindex="0">
+        <div class="card-title">KAKA Larga Charcoal Design</div>
+        <div class="card-desc">Luxurious charcoal louvers with unique patterns.</div>
+        <button class="pdf-btn" onclick="openPdfSameTab('https://drive.google.com/file/d/1fAQ5LwRLYhLKZed3iohbmSBsFMA7nU70/view?usp=drive_link')">Open PDF</button>
+      </div>
+      <div class="product-card" tabindex="0">
+        <div class="card-title">FMD Door Leaf Design</div>
+        <div class="card-desc">Smart, factory-made FMD doors designed for elegance and durability.</div>
+        <button class="pdf-btn" onclick="openPdfSameTab('https://drive.google.com/file/d/1xt6OJdAw6AyROZ3qms5upi23OqUCthyj/view?usp=drive_link')">Open PDF</button>
+      </div>
+      <div class="product-card" tabindex="0">
+        <div class="card-title">KAKA WPC Door E-Brochure</div>
+        <div class="card-desc">Durable and stylish WPC doors with premium craftsmanship.</div>
+        <button class="pdf-btn" onclick="openPdfSameTab('https://drive.google.com/file/d/1fQ-shCY9ZIOKEduSNfcb7G8f6nS-jVHl/view?usp=drive_link')">Open PDF</button>
+      </div>
+      <div class="product-card" tabindex="0">
+        <div class="card-title">PVC Fluted Wall &amp; Ceiling Panels</div>
+        <div class="card-desc">Fluted panels combining style with maintenance ease.</div>
+        <button class="pdf-btn" onclick="openPdfSameTab('https://drive.google.com/file/d/1CQNkbjMalVjckt4VKN0yD21j_EGVKe1M/view?usp=drive_link')">Open PDF</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" role="region" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contact Us</h2>
+    <form id="contactForm" autocomplete="off">
+      <label for="name">Your Name</label>
+      <input id="name" name="name" type="text" required />
+
+      <label for="phone">Mobile Number</label>
+      <input id="phone" name="phone" type="tel" maxlength="10" pattern="[0-9]{10}" required placeholder="10-digit mobile number" />
+
+      <label for="email">Your Gmail Address</label>
+      <input id="email" name="email" type="email" required placeholder="yourname@gmail.com" />
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+    <div id="form-status" style="color:green; font-weight:bold; margin-top:15px; display:none;">
+      Message sent!
+    </div>
+    <div class="contact-info">
+      <p>Email: <a href="mailto:info@ramdevpvc.com">info@ramdevpvc.com</a></p>
+      <p>Phone: <a href="tel:+919940798582">+91 99407 98582</a></p>
+      <p>Office Address: 1206,Sathy Main Road,Moor Market,Ganapathy,Coimbatore-06</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 RAMDEV PVC. All rights reserved.
+  </footer>
+
+  <script>
+    // Main navigation
+    const buttons = document.querySelectorAll('nav button');
+    const sections = document.querySelectorAll('section');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        buttons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        sections.forEach(sec => sec.classList.remove('active'));
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        const targetId = button.getAttribute('data-target');
+        document.getElementById(targetId).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Contact form client-side validation and EmailJS
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      // Name required
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+      if (name === "" || phone === "" || email === "" || message === "") {
+        alert("All fields are required.");
+        return false;
+      }
+      if (!/^\d{10}$/.test(phone)) {
+        alert("Mobile number must be exactly 10 digits.");
+        return false;
+      }
+      if (!/^[\w.+-]+@gmail\.com$/i.test(email)) {
+        alert("Please enter a valid Gmail address ending with @gmail.com.");
+        return false;
+      }
+      // Send using EmailJS
+      emailjs.send("service_pxhkkof", "template_h1dv8lp", {
+        from_name: name,
+        from_phone: phone,
+        from_email: email,
+        message: message
+      })
+      .then(function() {
+        document.getElementById("contactForm").reset();
+        document.getElementById("form-status").style.display = "block";
+      }, function(error) {
+        alert("Failed to send message. Please try again later.");
+      });
+    });
+
+    function openPdfSameTab(url) {
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
